@@ -6,13 +6,13 @@
 
 ### Links and Resources
 * [submission PR](https://github.com/austin-wood-401-advanced-javascript/lab-09/pull/1) 
-* [travis](   )
+* [travis]([![Build Status](https://www.travis-ci.com/austin-wood-401-advanced-javascript/lab-09.svg?branch=master)](https://www.travis-ci.com/austin-wood-401-advanced-javascript/lab-09))
 * [back-end](http://xyz.com) (when applicable)
-* [front-end](http://xyz.com) (when applicable)
+* [front-end](https://lap9.herokuapp.com/docs/) (when applicable)
 
 #### Documentation
-* [api docs](http://xyz.com) (API servers)
-* [jsdoc](http://xyz.com) (Server assignments)
+* [api docs](http://localhost:3333/api-docs/) (API servers)
+* [jsdoc](https://lap9.herokuapp.com/docs/) (Server assignments)
 * [styleguide](http://xyz.com) (React assignments)
 
 ### Modules
@@ -43,4 +43,4 @@ Usage Notes or examples
 * What assertions need to be / should be made?
 
 #### UML
-Link to an image of the UML for your application and response to events
+* [UML](https://drive.google.com/open?id=1rWQflg1QlCYxq77EpCCqLvllUp3_m_B-)
