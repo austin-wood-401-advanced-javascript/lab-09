@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: app.js</title>
+    <title>JSDoc: Source: models/mongo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: app.js</h1>
+    <h1 class="page-title">Source: models/mongo.js</h1>
 
     
 
@@ -29,54 +29,74 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 /**
- * API Server Module
- * @module src/app
+ *
+ *
+ * @class Model
  */
+class Model {
 
-const cwd = process.cwd();
+  constructor(schema) {
+    this.schema = schema;
+  }
 
-// 3rd Party Resources
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
+  jsonSchema() {
+    console.log(typeof this.schema.jsonSchema);
+    return typeof this.schema.jsonSchema === 'function'
+      ? this.schema.jsonSchema()
+      : {};
+  }
 
-// Esoteric Resources
-const errorHandler = require( `${cwd}/src/middleware/500.js`);
-const notFound = require( `${cwd}/src/middleware/404.js` );
-const v1Router = require( `${cwd}/src/api/v1.js` );
-const swagger = require(`${cwd}/src/api/swagger.js`);
+  /**
+   *
+   *
+   * @param {*} _id
+   * @returns {object}
+   * @memberof Model
+   */
+  get(_id) {
+    let queryObject = _id ? { _id } : {};
+    return this.schema.find(queryObject);
+  }
 
-// Prepare the express app
-const app = express();
 
-// App Level MW
-app.use(cors());
-app.use(morgan('dev'));
-
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-
-// Static Routes
-app.use('/docs', express.static('docs'));
-
-// Routes
-app.use(v1Router);
-
-// Catchalls
-app.use(notFound);
-app.use(errorHandler);
-
-/**
- * Start Server on specified port
- * @param port {integer} (defaults to process.env.PORT)
+  /**
+   *
+   *
+   * @param {*} record
+   * @returns {*} record
+   * @memberof Model
+   */
+  create(record) {
+    console.log('r',record);
+    let newRecord = new this.schema(record);
+    console.log('n', newRecord);
+    return newRecord.save();
+  }
+  /**
+ * 
+ * @param {*} _id
+ * @param {*} record
+ * @returns {*} record
  */
-let start = (port = process.env.PORT) => {
-  app.listen(port, () => {
-    console.log(`Server Up on ${port}`);
-  });
-};
+  update(_id, record) {
+    return this.schema.findByIdAndUpdate(_id, record, { new: true });
+  }
 
-module.exports = {app,start};
+
+  /**
+   *
+   *
+   * @param {*} _id
+   * @returns {}
+   * @memberof Model
+   */
+  delete(_id) {
+    return this.schema.findByIdAndDelete(_id);
+  }
+
+}
+
+module.exports = Model;
 </code></pre>
         </article>
     </section>
